@@ -796,10 +796,274 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
  * obj.deleteAtIndex(index)
  */
 
-var linkedList = new MyLinkedList();
-linkedList.addAtHead(1);
-linkedList.addAtTail(3);
-linkedList.addAtIndex(1,2);   //链表变为1-> 2-> 3
-linkedList.get(1);            //返回2
-linkedList.deleteAtIndex(1);  //现在链表是1-> 3
-linkedList.get(1);            //返回3
+// var linkedList = new MyLinkedList();
+// linkedList.addAtHead(1);
+// linkedList.addAtTail(3);
+// linkedList.addAtIndex(1,2);   //链表变为1-> 2-> 3
+// linkedList.get(1);            //返回2
+// linkedList.deleteAtIndex(1);  //现在链表是1-> 3
+// linkedList.get(1);            //返回3
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/** 环形链表2
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function(head) {
+    var fir = head;
+    var fron = head;
+    head = head.next;
+    while(head.next){
+        console.log("1")
+        if(fron.val == head.val){
+            return fron
+        }
+        if(fir.val == head.val){
+            fron = fron.next;
+            console.log("1")
+        }
+        
+        fir = fir.next;
+        head = head.next.next;
+    }
+    return -1;
+    
+};
+var Listnode1208 = creteLisArray([3,2,0,-4]);
+Listnode1208[1].next = Listnode1208[0].next;
+//detectCycle(Listnode1208[0]);
+
+/** 寻找路径
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function(m, n) {
+    var arr = new Array(m);
+    for(var i = 0 ; i < arr.length; i++){
+        arr[i] = new Array(n).fill(0);
+        if(i == arr.length -1){
+            arr[i][n-1] = 9;
+        }
+    }
+    var duilie = [[0,0]],size,num;
+    var count = 0;
+    while(duilie.length != 0){
+        num = duilie.length;
+        for(var i = 0 ; i < num ; i++){
+            x = duilie[0][1], y = duilie[0][0];
+            arr[y][x] = 2;
+            if(y + 1<arr.length && arr[y + 1][x] == 0){duilie.push([y+1,x])} //下
+            if(x + 1<arr[y].length && arr[y][x + 1] == 0){duilie.push([y,x+1])} // 右
+            if(y + 1<arr.length && arr[y + 1][x] == 9){count++}
+            if(x + 1<arr[y].length && arr[y][x + 1] == 9){count++}
+            duilie.shift();
+        }
+    }
+    return count;
+};
+uniquePaths(7,3);
+
+/** 找钱
+ * @param {number[]} bills
+ * @return {boolean}
+ */
+var lemonadeChange = function(bills) {
+    var wu = 0,shi = 0;
+    for(var i = 0 ; i < bills.length ; i++){
+        if(bills[i] == 5){
+            wu++;
+        }else if(bills[i] ==10){
+            if(wu == 0){
+                return false
+            }
+            wu--
+            shi++
+        }else if(bills[i] == 20){
+            if(wu == 0 || shi == 0){
+                return false
+            }
+            wu--
+            shi--
+        }
+    }
+    return true
+};
+
+/** 零矩阵 
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroes = function(matrix) {
+    var row = {};
+    var cow = {};
+    for(var i = 0 ; i < matrix.length ; i++){
+        for(var j = 0 ; j < matrix[i].length ; j++){
+            if(matrix[i][j] == 0){
+                if(!row[i]){row[i] = 1}
+                if(!cow[j]){cow[j] = 1}
+            }
+        }
+    }
+    for(var name in row){ //行处理
+        for(var i = 0 ; i < matrix[parseInt(name)].length ; i++){
+            matrix[parseInt(name)][i] = 0;
+        }
+    }
+    for(var name in cow){//列处理
+        for(var i = 0 ; i < matrix.length ; i++){
+            matrix[i][parseInt(name)] = 0;
+        }
+    }
+};
+var arr12101 = [[1,1,1],[1,0,1],[1,1,1]];
+// setZeroes(arr12101)
+
+
+/**对角线遍历
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var findDiagonalOrder = function(matrix) {
+    // var num = 0,lesnum = 0,y = 0 , x = 0 , numX = 0 , numY = 0;
+    // var rearr = [],bol=true;
+    // while(bol){
+    //     if(!(num<matrix.length) && lesnum < num){
+    //         lesnum ++;
+    //         num = matrix.length - 1;
+    //     }
+    //     if((num+lesnum) % 2 == 0){ //y
+    //         y = num,x = lesnum;
+    //         numY = -1 , numX = 1;
+    //     }else{ //x
+    //         y = lesnum,x = num;
+    //         numY = 1 , numX = -1;
+    //     }
+    //     for(var i = 0 ; i<= num-lesnum ; i++){
+    //         rearr.push(matrix[y][x]);
+    //         x = x+numX;
+    //         y = y+numY;
+    //         if(!(y<matrix.length && y>=0 && x<matrix[0].length && x>=0)){
+    //             break;
+    //         }
+    //     }
+    //     num ++;
+    //     if(num+lesnum>matrix.length+matrix[0].length){
+    //         bol = false
+    //     }
+    // }
+    // return rearr;
+    var nums = [];
+    var m = matrix.length;
+    var n = matrix[0].length;
+
+    var i = 0;	// i 是 x + y 的和
+    while (i < m + n)
+    {
+        // 第 1 3 5 ... 趟
+        var x1 = (i < m) ? i : m - 1;	// 确定 x y 的初始值
+        var y1 = i - x1;
+        while (x1 >= 0 && y1 < n)
+        {
+            nums.push(matrix[x1][y1]);
+            x1--;
+            y1++;
+        }
+        i++;
+
+        if (i >= m + n) break;
+        // 第 2 4 6 ... 趟
+        var y2 = (i < n) ? i : n - 1;	// 确定 x y 的初始值
+        var x2 = i - y2;
+        while (y2 >= 0 && x2 < m)
+        {
+            nums.push(matrix[x2][y2]);
+            x2++;
+            y2--;
+        }
+        i++;
+    }
+    return nums;
+    /*
+    vector<int> findDiagonalOrder(vector<vector<int>>& matrix) 
+{
+	vector<int> nums;
+	int m = matrix.size();
+	if (m == 0) return nums;
+	int n = matrix[0].size();
+	if (n == 0) return nums;
+
+	bool bXFlag = true;
+	for (int i = 0; i < m + n; i++)
+	{
+		int pm = bXFlag ? m : n;
+		int pn = bXFlag ? n : m;
+
+		int x = (i < pm) ? i : pm - 1;
+		int y = i - x;                
+
+		while (x >= 0 && y < pn)
+		{
+			nums.push_back(bXFlag ? matrix[x][y] : matrix[y][x]);
+			x--;
+			y++;
+		}
+
+		bXFlag = !bXFlag;
+	}
+	return nums;
+}
+
+    */
+};
+var arr12102 = [[1,2,3],[4,5,6],[7,8,9]];
+//findDiagonalOrder(arr12102);
+
+/** Dota2参议院
+ * @param {string} senate
+ * @return {string}
+ */
+var predictPartyVictory = function(senate) {
+    var Rduilie = [];
+    var Dduilie = [];
+    for(var i = 0 ; i < senate.length ; i++){
+        if(senate[i] == "R"){
+            Rduilie.push(i);
+        }else{
+            Dduilie.push(i);
+        }
+    }
+    var i=0,num = senate.length;
+    while(i<num){
+        if(i == Rduilie[0]){
+            if(Dduilie.length == 0){
+                return "Radiant";
+            }
+            Dduilie.shift();
+            Rduilie.push(Rduilie[0]);
+            Rduilie.shift();
+        }
+        if(i == Dduilie[0]){
+            if(Rduilie.length == 0){
+                return "Dire";
+            }
+            Rduilie.shift();
+            Dduilie.push(Dduilie[0]);
+            Dduilie.shift();
+        }
+        if(i==num-1){
+            i = 0
+        }else{
+            i++
+        }
+    }
+};
+var str1211 = "RDRRDDRD"
+//predictPartyVictory(str1211);

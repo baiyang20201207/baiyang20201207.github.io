@@ -79,6 +79,21 @@ function ListNode(val, next) {
 	 }	 
 	 return head;
  }
+
+ function creteLisArray(arr){
+    var head = null,root,next;
+    for(var i = 0 ; i < arr.length ; i++){
+       root = new ListNode(arr[i]);
+       if(head == null){
+           head = root;
+           next = head;
+           continue;
+       }
+       next.next = root;
+       next = root;
+    }	 
+    return [head,root];
+}
  
 /**
  * @param {ListNode} head
