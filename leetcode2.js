@@ -354,22 +354,32 @@ var zigzagLevelOrder = function(root) {
  * @return {number}
  */
 var candy = function(ratings) {
-    var renum = 0;
+    var renum = 0,num =0,num1 = 0;
     var rearr = new Array(ratings.length);
-    for(var i = 0 ; i < ratings.length ; i++){
-        if(rearr[i] == null && ratings[i] < ratings[i+1]){ // 迭代运算
+    var i =0;
+    while( i < ratings.length){
+        if(ratings[i] < ratings[i+1]){ // 迭代运算
             renum++;
             rearr[i] = 1;
-            diedai(i)
+            num = diedai(i)
+            i = num+i;
+            continue;
         }   
-        if(rearr[i] == null && ratings[i] > ratings[i+1]){//递归运算
-            digun(i);
-            if
+        if(ratings[i] > ratings[i+1]){//递归运算
+            num1 = digun(i);
+            if(num !=0){
+                if(num1 >num){
+                    renum+=num1-num;
+                }
+            }
+            i = i+num1-2;
+            continue;
         }
-        if(rearr[i] == null && (ratings[i] == ratings[i+1] || i == ratings.length-1)){
+        if(ratings[i] == ratings[i+1] || i == ratings.length-1){
             rearr[i] = 1;
             renum++;
         }
+        num = 0,num1 = 0,i++
     }
     return renum;
     function digun(len){
