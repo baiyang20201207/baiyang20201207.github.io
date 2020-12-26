@@ -367,7 +367,7 @@ var candy = function(ratings) {
         }   
         if(ratings[i] > ratings[i+1]){//递归运算
             num1 = digun(i);
-            if(num !=0){
+            if(ratings[i-1]>ratings[i]){
                 if(num1 >num){
                     renum+=num1-num;
                 }
@@ -390,7 +390,7 @@ var candy = function(ratings) {
             num = digun(len+1);
             rearr[len] = num
             renum+=num
-            return num+1
+            return num + 1
         }
     }
     function diedai(len){
@@ -401,14 +401,22 @@ var candy = function(ratings) {
             num++
             len++
         }
-        return  num - 1;
+        return  num-1;
     }
 };
 // var arr1224 = [1,0,2];
+console.log(candy([1,0,2]),5); //5
 // var arr1224 = [1,2,2];
+console.log(candy([1,2,2]),4); // 4
 // var arr1224 = [1,3,2,2,1];
-var arr1224 = [1,6,10,8,7,3,2]
-candy(arr1224);
+console.log(candy([1,3,2,2,1]),7) // 7
+// var arr1224 = [1,6,10,8,7,3,2]
+console.log(candy([1,6,10,8,7,3,2]),18) //18
+// var arr1224 = [29,51,87,87,72,12]
+console.log(candy([29,51,87,87,72,12]),12) //12
+// var arr1224 = [1,2,87,87,87,2,1];
+console.log(candy([1,2,87,87,87,2,1]),13);
+console.log(candy([1,2,3,5,4,3,2,1]),21)
 
 /**  分发饼干
  * @param {number[]} g
@@ -440,3 +448,56 @@ var findContentChildren = function(g, s) {
 // var arr12251 = [1,2,3];
 // var arr12252 = [1,2];
 // findContentChildren(arr12251,arr12252)
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**  回文链表
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    var nexthead =head,len = 0;
+    while(nexthead.next !== null){
+        len++;
+        nexthead = nexthead.next;
+    }
+    return digun(head)
+    function digun(root){
+        var node,next,nexts;
+        if(root.next !==null){
+            next = root.next.val
+            if(root.next.next !==null){
+                nexts = root.next.next.val
+            }
+        }else{
+            return false
+        }
+        if(next == root.val || nexts == root.val){
+            if(next == root.val){
+                return root.next.next
+            }
+            if(nexts == root.val){
+                return root.next.next.next;
+            }
+        }else{
+            node = digun(root.next);
+            if(root.val == root.val){
+                if(node.next == null){
+                    return true
+                }else{
+                    return node.next
+                }
+            }else{
+                return false
+            }
+        }
+    }
+}
+var ListNode12251 = creteLis([1,2,3,2,1]);
+var ListNode12252 = creteLis([1,2]);
+// isPalindrome(ListNode1225)
