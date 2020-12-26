@@ -404,19 +404,19 @@ var candy = function(ratings) {
         return  num-1;
     }
 };
-// var arr1224 = [1,0,2];
-console.log(candy([1,0,2]),5); //5
-// var arr1224 = [1,2,2];
-console.log(candy([1,2,2]),4); // 4
-// var arr1224 = [1,3,2,2,1];
-console.log(candy([1,3,2,2,1]),7) // 7
-// var arr1224 = [1,6,10,8,7,3,2]
-console.log(candy([1,6,10,8,7,3,2]),18) //18
-// var arr1224 = [29,51,87,87,72,12]
-console.log(candy([29,51,87,87,72,12]),12) //12
-// var arr1224 = [1,2,87,87,87,2,1];
-console.log(candy([1,2,87,87,87,2,1]),13);
-console.log(candy([1,2,3,5,4,3,2,1]),21)
+// // var arr1224 = [1,0,2];
+// console.log(candy([1,0,2]),5); //5
+// // var arr1224 = [1,2,2];
+// console.log(candy([1,2,2]),4); // 4
+// // var arr1224 = [1,3,2,2,1];
+// console.log(candy([1,3,2,2,1]),7) // 7
+// // var arr1224 = [1,6,10,8,7,3,2]
+// console.log(candy([1,6,10,8,7,3,2]),18) //18
+// // var arr1224 = [29,51,87,87,72,12]
+// console.log(candy([29,51,87,87,72,12]),12) //12
+// // var arr1224 = [1,2,87,87,87,2,1];
+// console.log(candy([1,2,87,87,87,2,1]),13);
+// console.log(candy([1,2,3,5,4,3,2,1]),21)
 
 /**  分发饼干
  * @param {number[]} g
@@ -461,43 +461,62 @@ var findContentChildren = function(g, s) {
  * @return {boolean}
  */
 var isPalindrome = function(head) {
-    var nexthead =head,len = 0;
-    while(nexthead.next !== null){
-        len++;
-        nexthead = nexthead.next;
+    if(head == null || head.next == null) {
+        return true;
     }
-    return digun(head)
-    function digun(root){
-        var node,next,nexts;
-        if(root.next !==null){
-            next = root.next.val
-            if(root.next.next !==null){
-                nexts = root.next.next.val
-            }
-        }else{
-            return false
-        }
-        if(next == root.val || nexts == root.val){
-            if(next == root.val){
-                return root.next.next
-            }
-            if(nexts == root.val){
-                return root.next.next.next;
-            }
-        }else{
-            node = digun(root.next);
-            if(root.val == root.val){
-                if(node.next == null){
-                    return true
-                }else{
-                    return node.next
-                }
-            }else{
-                return false
-            }
-        }
+    var slow = head, fast = head;
+    var pre = head, prepre = null;
+    while(fast != null && fast.next != null) {
+        pre = slow;
+        slow = slow.next;
+        fast = fast.next.next;
+        pre.next = prepre;
+        prepre = pre;
     }
+    if(fast != null) {
+        slow = slow.next;
+    }
+    while(pre != null && slow != null) {
+        if(pre.val != slow.val) {
+            return false;
+        }
+        pre = pre.next;
+        slow = slow.next;
+    }
+    return true;
 }
 var ListNode12251 = creteLis([1,2,3,2,1]);
 var ListNode12252 = creteLis([1,2]);
 // isPalindrome(ListNode1225)
+/** 种花问题
+ * @param {number[]} flowerbed
+ * @param {number} n
+ * @return {boolean}
+ */
+var canPlaceFlowers = function(flowerbed, n) {
+    var count = 0;
+    for(var i = 0 ; i < flowerbed.length ; i++){
+        if(flowerbed[i] == 0){  
+            if(flowerbed[i-1] == 0 && flowerbed[i+1] == 0 ){
+                flowerbed[i] =1
+                count++
+            }
+            if(i==0 && flowerbed[i+1] == 0){
+                flowerbed[i] =1
+                count++
+            }
+            if(i==flowerbed.length-1 && flowerbed[i-1] ==0){
+                flowerbed[i] =1
+                count++
+            }
+        }
+        if(count>=n){
+            return true
+        }
+    }
+    return false
+};
+// var arr1226 = [1,0,0,0,1];
+// var arr1226 = [1,0,1,0,1,0,1];
+var arr1226 = [1,0,0,0,1,0,0];
+canPlaceFlowers(arr1226,1);
