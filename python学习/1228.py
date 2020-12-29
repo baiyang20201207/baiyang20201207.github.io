@@ -137,7 +137,7 @@ def title8():
         for j in range(8):
             if i%2==0:
                 if j%2==0:
-                    string+=" "
+                    string+=" "s
                 else:
                     string+="*"
             else:
@@ -147,9 +147,9 @@ def title8():
                     string+=" "
         string+='\n'
     return string
-    ☺
-def title9():
     
+def title9():
+
 print(title8())
 
         
