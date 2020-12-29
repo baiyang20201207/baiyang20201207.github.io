@@ -519,4 +519,21 @@ var canPlaceFlowers = function(flowerbed, n) {
 // var arr1226 = [1,0,0,0,1];
 // var arr1226 = [1,0,1,0,1,0,1];
 var arr1226 = [1,0,0,0,1,0,0];
-canPlaceFlowers(arr1226,1);
+// canPlaceFlowers(arr1226,1);
+/**买卖股票的最佳时机
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    var dp=[]
+    dp[0]=-prices[0] //卖出的利益
+    dp[1]=prices[0] //当前持有股票
+    for(var i = 1 ; i < prices.length ; i++){
+        dp[0] = Math.max(dp[0],prices[i]-dp[1])
+        dp[1] = Math.min(dp[1],prices[i])
+    }
+    return dp[0]
+};
+var arr1229 = [7,1,5,3,6,4]
+maxProfit(arr1229)
+
