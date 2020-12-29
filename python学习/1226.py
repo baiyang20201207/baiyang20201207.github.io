@@ -146,7 +146,7 @@ def printfu(num,len):
     return restring 
 # teshu1();
 # 4
-import string
+import string,random
 def zimu():
     low=string.ascii_lowercase
     restring=""
@@ -162,5 +162,10 @@ def zimu():
         restring+=low[26-i-1]
         restring+="*"
     return restring
-print(zimu())
+# print(zimu())
+def cai():
+    num=int(input("请输入次数:"))
+    number=int(input("请输入数字："))
+    for i in num:
+        if
 
