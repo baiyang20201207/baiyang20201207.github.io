@@ -572,3 +572,4 @@ var minCostClimbingStairs = function(cost) {
 };
 var arr12291=[0,0,0,0,0,0]
 minCostClimbingStairs(arr12291);
+function as(){}
