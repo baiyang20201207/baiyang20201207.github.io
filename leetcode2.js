@@ -535,5 +535,40 @@ var maxProfit = function(prices) {
     return dp[0]
 };
 var arr1229 = [7,1,5,3,6,4]
-maxProfit(arr1229)
-
+// maxProfit(arr1229)
+/**打家劫舍
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(nums) {
+    if(nums.length == 0 ){
+        return 0
+    }
+    if(nums.length == 1){
+        return nums[0]
+    }
+    var dp=new Array(nums.length)
+    dp[0] = nums[0]
+    dp[1] = Math.max(nums[0],nums[1])
+    for(var i = 2 ; i < nums.length ; i++){
+        dp[i] = Math.max(dp[i-2]+nums[i],dp[i-1])
+    }
+    return dp[nums.length-1]
+};
+/**使用最小花费爬楼梯
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function(cost) {
+    var dp = new Array(cost.length);
+    dp[0]=cost[0]
+    dp[1]=cost[1]
+    for(var i = 2 ; i < cost.length+1 ; i++){
+        if(i==cost.length){
+            return Math.min(dp[i-2],dp[i-1])
+        }
+        dp[i]=Math.min(dp[i-2]+cost[i],dp[i-1]+cost[i])
+    }
+};
+var arr12291=[0,0,0,0,0,0]
+minCostClimbingStairs(arr12291);
