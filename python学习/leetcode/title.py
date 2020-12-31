@@ -32,5 +32,22 @@ class Solution: #使用最小花费爬楼梯
             maxnum=max(dp[i],maxnum)
         return maxnum
 
-so=Solution()
-print(so.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+# so=Solution()
+# print(so.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+class NumArray:#区域和检索 - 数组不可变
+    def __init__(self, nums: List[int]):
+        self.arr=[]
+        for i in range(len(nums)):
+            if i==0: self.arr.append(nums[i])
+            else:
+                self.arr.append(self.arr[i-1]+nums[i])
+
+    def sumRange(self, i: int, j: int) -> int:
+        if i==0:
+            return self.arr[j]
+        else:return self.arr[j]-self.arr[i-1]
+
+num = NumArray([-2, 0, 3, -5, 2, -1])
+print(num.sumRange(0,2))
+print(num.sumRange(2,5))
+print(num.sumRange(0,5))qwertyyuiiopasddfghjklzxcvbnm 

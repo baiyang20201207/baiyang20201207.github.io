@@ -572,4 +572,40 @@ var minCostClimbingStairs = function(cost) {
 };
 var arr12291=[0,0,0,0,0,0]
 minCostClimbingStairs(arr12291);
-function as(){}
+/** 连续子数组的最大和
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    var fir,sec = 0
+    fir=nums[0]
+    var maxnum=fir
+    for(var i = 1 ; i < nums.length ; i++){
+        sec=Math.max(fir+nums[i],nums[i])
+        maxnum = Math.max(maxnum,sec)
+        fir=sec
+    }
+    return maxnum
+};
+
+/** 区域和检索 - 数组不可变
+ * @param {number[]} nums
+ */
+var NumArray = function(nums) {
+    this.arr=new Array(nums.length)
+    for(var i = 0 ; i < nums.length ; i++){
+        this.arr[i] = nums[i]
+    }
+};
+/** 区域和检索 - 数组不可变
+ * @param {number} i 
+ * @param {number} j
+ * @return {number}
+ */
+NumArray.prototype.sumRange = function(i, j) {
+    var renum=0
+    for(var index=i ; index <= j ; index++){
+        renum+=this.arr[index]
+    }
+    return renum
+};
