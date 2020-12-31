@@ -1,0 +1,10 @@
+
+            isalnum()函数
+            描述：检测字符串是否由字母和数字组成。
+            
+            语法：str.isalnum()  -> bool  返回值为布尔类型（True,False）
+            
+            str中至少有一个字符且所有字符都是字母或数字则返回 True,否则返回 False
+    
+    
+    
