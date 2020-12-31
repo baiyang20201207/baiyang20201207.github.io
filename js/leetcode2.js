@@ -609,3 +609,22 @@ NumArray.prototype.sumRange = function(i, j) {
     }
     return renum
 };
+
+/** 无重叠区间
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function(intervals) {
+    intervals.sort((a,b)=>{return a[1]-b[1]})
+    last = intervals[0],renum = 0
+    for(var i = 1 ; i < intervals.length ; i++){
+        if(last[1] > intervals[i][0]){
+            renum++
+        }else{
+            last = intervals[i]
+        }
+    }
+    return renum
+};
+var arr1231 = [ [1,2], [2,3], [3,4], [1,3] ]
+eraseOverlapIntervals(arr1231)

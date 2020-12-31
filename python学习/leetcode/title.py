@@ -47,7 +47,22 @@ class NumArray:#区域和检索 - 数组不可变
             return self.arr[j]
         else:return self.arr[j]-self.arr[i-1]
 
-num = NumArray([-2, 0, 3, -5, 2, -1])
-print(num.sumRange(0,2))
-print(num.sumRange(2,5))
-print(num.sumRange(0,5))qwertyyuiiopasddfghjklzxcvbnm 
+# num = NumArray([-2, 0, 3, -5, 2, -1])
+# print(num.sumRange(0,2))
+# print(num.sumRange(2,5))
+# print(num.sumRange(0,5))qwertyyuiiopasddfghjklzxcvbnm 
+class Solution: #无重叠区间
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=self.softpaixu)
+        renum,size=0,len(intervals)
+        if size == 0:
+            return 0
+        last=intervals[0]
+        for i in range(1,size):
+            if last[1] > intervals[i][0]:
+                renum+=1
+            else:
+                last = intervals[i]
+        return renum
+    def softpaixu(self,elem):
+        return elem[1]
