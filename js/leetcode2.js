@@ -644,4 +644,50 @@ var fib = function(n) {
         }
     }
 };
-fib(2)
+// fib(2)
+/** 较大的分组
+ * @param {string} s
+ * @return {number[][]}
+ */
+var largeGroupPositions = function(s) {
+    var start =0,rearr=[]
+    for(var i = 1 ; i< s.length ;i++){
+        if(s[i] !== s[start]){
+            if(i-start >= 3){
+                rearr.push([start,i-1])
+            }
+            start = i
+        }
+    }
+    return rearr
+};
+var str0105 = "abbxxxxzzy"
+// largeGroupPositions(str0105)
+/** 三步问题
+ * @param {number} n
+ * @return {number}
+ */
+var waysToStep = function(n) {
+    // var arr = new Array(4).fill(0)
+    // arr[1] = 1,arr[2] = 2, arr[3] = 4,tep = 0
+    // for(var i = 4 ; i<= n ;i++){
+    //     tep = arr[1]+arr[2]+arr[3]
+    //     arr[1] = arr[2]
+    //     arr[2] = arr[3]
+    //     arr[3] = tep
+    // }
+    // return tep
+    if(n < 3) return n
+    let cur = 4
+    let one = 1
+    let two = 2
+    let three = 4
+    for(let i = 4; i <= n; i++){
+      cur = (one + two + three) % 1000000007
+      one = two
+      two = three
+      three = cur
+    }
+    return cur
+};
+waysToStep(23)
