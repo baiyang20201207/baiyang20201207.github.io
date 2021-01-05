@@ -627,4 +627,21 @@ var eraseOverlapIntervals = function(intervals) {
     return renum
 };
 var arr1231 = [ [1,2], [2,3], [3,4], [1,3] ]
-eraseOverlapIntervals(arr1231)
+// eraseOverlapIntervals(arr1231)
+/**斐波那契数
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function(n) {
+    var arr = [0,1]
+    return digun(n)
+    function digun(n){
+        if(arr.length >n){
+            return arr[n]
+        }else{
+            arr[n] = digun(n-1)+digun(n-2)
+            return arr[n]
+        }
+    }
+};
+fib(2)

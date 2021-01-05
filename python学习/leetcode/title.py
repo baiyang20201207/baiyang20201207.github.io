@@ -59,7 +59,33 @@ class Solution: #使用最小花费爬楼梯
                 num=arr[i-2]+arr[i-1]
                 arr.append(num)
         return arr[n-1]
+
+    
     def climbStairs1(self,n):#爬楼梯递归
+        self.i=1
+    def fib(self, n: int) -> int:#斐波那契数
+        self.arr=[0,1]
+        return self.digun(n)
+    def fibDigun(self,n):
+        size=len(self.arr)
+        if size>n:
+            return self.arr[n]
+        else:
+            tep=self.digun(n-1)+self.digun(n-2)
+            self.arr.append(tep)
+            return tep
+    def diedaiFib(self, n: int) -> int:#迭代斐波那契数
+        arr=[0,1]
+        for i in range(2,n+1):
+            arr.append(arr[i-1]+arr[i-2])
+        return arr[n]
+    def diedaiFib(self, n: int) -> int:#迭代斐波那契数，动态数组优化
+        one=0,two=1
+        for i in range(2,n+1):
+            tep = one+two
+            one = two
+            two = tep
+        return tep
 so=Solution()
 print(so.climbStairs(5))
 # print(so.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
